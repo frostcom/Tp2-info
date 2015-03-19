@@ -62,8 +62,13 @@ class Plateau:
             string: Retourne la chaîne de caractères à afficher.
         """
 
-        return "+-0-+-1-+-2-+\n0| self.cases(0,0) | self.cases(0,1) | self.cases(0,2) |\n+---+---+---+\n1| self.cases(1,0) | self.cases(1,1) | self.cases(1,2) |\n+---+---+---+\n2| self.cases(2,0) | self.cases(2,1) | self.cases(2,2) |\n+---+---+---+"
+        s = " +-0-+-1-+-2-+\n"
+        for i in range(0, 3):
+            s+=str(i)+"| "
+            for j in range(0, 3):
 
+                s += self.cases[(i,j)].contenu + " | "
+            s+="\n +---+---+---+\n"
     def non_plein(self):
         """
         Retourne si le plateau n'est pas encore plein.
@@ -75,7 +80,7 @@ class Plateau:
 
         for i in range(0,3):
             for j in range(0,3):
-                if self.cases(i,j)==" ": return True
+                if self.cases(i,j).contenu==" ": return True
         return False
     def position_valide(self, ligne, colonne):
         """
@@ -130,12 +135,12 @@ class Plateau:
         assert pion in ["O", "X"], "Plateau: pion doit être 'O' ou 'X'."
 
         for i in range(0,3):
-            if self.cases(i,1)==self.cases(i,2) and self.cases(i,1)==self.cases(i,3): return True
+            if self.cases(i,1).contenu==self.cases(i,2).contenu and self.cases(i,1).contenu==self.cases(i,3).contenu: return True
         for j in range(0,3):
-            if self.cases(1,j)==self.cases(2,j) and self.cases(1,j)==self.cases(3,j): return True
-        diag1=[self.cases(k,k) for k in range(0,3)]
+            if self.cases(1,j).contenu==self.cases(2,j).contenu and self.cases(1,j).contenu==self.cases(3,j).contenu: return True
+        diag1=[self.cases(k,k).contenu for k in range(0,3)]
         if len(set(diag1))==1 return True
-        diag2=[self.cases(k,2-k) for k in range(0,3)]
+        diag2=[self.cases(k,2-k).contenu for k in range(0,3)]
         if len(set(diag2))==1 return True
         return False
 
